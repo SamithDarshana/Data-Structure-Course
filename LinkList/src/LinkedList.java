@@ -110,6 +110,66 @@ public class LinkedList {
             first = first.next;
         }
     }
+    public int[] toArray(){
+        int[] array = new int[size];
+        var current = first;
+        int index = 0;
+        while (current != null){
+            array[index] = current.value;
+            current = current.next;
+            index++;
+        }
+        return array;
+    }
+    public void reverse(){
+        while (first.next != null){
+            var current = first.next;
+            var prev = first;
+            while (current.next != null) {
+                current = current.next;
+                prev = prev.next;
+            }
+            current.next = prev;
+            prev.next = null;
+        }
+        var temp = first;
+        first = last;
+        last = temp;
+    }
+    void reverse_2(){
+        if(isEmpty())
+            return;
+        var previous = first;
+        var current = first.next;
+        while (current != null){
+            var next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+        last = first;
+        last.next = null;
+        first = previous;
+    }
+    void getKthNodeFromEnd(int k){
+        if (isEmpty())
+            throw new IllegalStateException();
+        var f = first;
+        var l = first;
+        if (k<1){
+            return;
+        }
+        for (int i=0; i<k-1; i++){
+            l = l.next;
+            if(l == null)
+                throw new IllegalArgumentException();
+        }
+        while (l.next != null){
+            f = f.next;
+            l = l.next;
+        }
+        System.out.println(k+" th node = "+ f.value);
+    }
     boolean isEmpty(){
         if(first == null)
             return true;
